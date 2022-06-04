@@ -14,18 +14,20 @@ headers = {
     'Authorization' : 'bearer %s' % key
 }
 parameters = {
-    'term' : 'BBQ',
+    'term' : 'Donut',
     'limit' : 50,
+    'offset' :20,
     'radius' : 10000,
-    'location' : 'Duluth'
+    'location' : 'Atlanta'
 }
 response = requests.get(url = url, headers=headers, params=parameters)
 
 query = response.json()['businesses']
 
-results = {'Name': [],'Price': [],'Rating': [],'Reviews': [],}
+results = {'Name': [],'Address': [],'Price': [],'Rating': [],'Reviews': [],}
 for q in query:
     results['Name'].append(q['name'])
+    results['Address'].append(q['location'])
     if "price" in q.keys():
         results['Price'].append(len(q['price']))
     else:
